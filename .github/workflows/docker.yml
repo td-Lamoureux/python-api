@@ -1,0 +1,30 @@
+---
+name: "Build and push docker image"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  docker-build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Tracking"
+        run: echo Workflow triggered by $GITHUB_ACTOR
+
+      - name: "Checkout"
+        uses: actions/checkout@v3
+
+      - name: "Docker login"
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "Docker build and push"
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: |
+            ghcr.io/td-lamoureux/python-api:${{ github.sha }}
+            ghcr.io/td-lamoureux/python-api:latest
