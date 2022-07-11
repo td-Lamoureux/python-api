@@ -28,3 +28,4 @@ jobs:
           tags: |
             ghcr.io/td-lamoureux/python-api:${{ github.sha }}
             ghcr.io/td-lamoureux/python-api:latest
+          secrets: ""
