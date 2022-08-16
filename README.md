@@ -1,22 +1,42 @@
 # Python API
 
+* [Setup](#setup)
+* [Running the API](#running-the-api)
+    * [Python](#running-the-api---python)
+    * [Docker](#running-the-api---docker)
+* [Tests](#tests)
+
 ## Setup
-1. Setup a virtual environment
+
 ```shell
+# Create a virtual environment
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 ```
       
 ## Running the API
+
+### Running the API - Python
+
 ```shell
 source .venv/bin/activate
 FLASK_APP=main.py flask run
 ```
 
-## Running tests
+### Running the API - Docker
+
 ```shell
-source .venv/bin/activate
-pip install -r requirements-test.txt
-pytest
+docker build -t python-api .
+docker run -p 5000 --name python-api -d --rm python-api
+
+# Find the given port
+docker port python-api
+```
+
+## Tests
+
+```shell
+pip install tox
+tox
 ```
